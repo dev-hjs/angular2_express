@@ -1,0 +1,8 @@
+<div [hidden]="!addUserShow">
+    name : <input type="text" [(ngModel)]="user.userName"/>
+    id : <input type="text" [(ngModel)]="user.userId"/>
+    pwd : <input type="text" [(ngModel)]="user.userPwd"/>
+    complete : <input type="checkbox" [(ngModel)]="user.complete"/>
+    <button (click)="addUser()">추가</button>
+</div>
+  

@@ -1,0 +1,35 @@
+<div>
+    name : <input type="text" [(ngModel)]="searchUser.userName"/>
+    id : <input type="text" [(ngModel)]="searchUser.userId"/>
+    pwd : <input type="text" [(ngModel)]="searchUser.userPwd"/>
+    complete : <input type="checkbox" [(ngModel)]="searchUser.complete"/>
+    <button  (click)="getUsers()">getUsers</button>
+    <button  (click)="getUsers2()">getUsers2</button>
+<button  (click)="showHideAddUserDiv()">{{addUserBtnStr}}</button><br><br>
+<app-user-insert (outputUser)="addUser($event)" [addUserShow]="addUserShow"></app-user-insert>
+</div>
+<div class="container">
+  <h2>{{title}}</h2>
+  <table class="table table-hover">
+    <thead>
+      <tr>
+        <th>userNo</th>
+        <th>userName</th>
+        <th>userId</th>
+        <th>userPwd</th>
+        <th>완료여부</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let un of userList">
+        <td><input type="text" value="{{un.userNo}}" disabled=true/></td>
+        <td><input type="text" [(ngModel)]="un.userName"/></td>
+        <td><input type="text" [(ngModel)]="un.userId"/></td>
+        <td><input type="text" [(ngModel)]="un.userPwd"/></td>
+        <td>
+            <input type="checkbox" [checked]="un.complete"/>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
