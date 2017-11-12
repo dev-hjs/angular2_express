@@ -5,7 +5,6 @@ import { User } from '../user/user';
   template:require("./user-insert.component.html")
 })
 export class UserInsertComponent implements OnInit {
-  @Input() addUserShow:boolean;
 
   user : User = new User();
   @Output() outputUser = new EventEmitter<User>();

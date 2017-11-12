@@ -24,9 +24,12 @@ export class FunctionTestComponent implements OnInit {
         test();
         test = function(){
           alert(2);
-        }
+        } 
       }catch(e){
         alert(e);
+        test = function(){
+          alert(2);
+        }
       }
       test();
     }
@@ -35,11 +38,11 @@ export class FunctionTestComponent implements OnInit {
         let test;
         try{
           test();
+        }catch(e){
+          alert(e);
           test = function test2(){
             alert(2);
           }
-        }catch(e){
-          alert(e);
         }
         test();
       }

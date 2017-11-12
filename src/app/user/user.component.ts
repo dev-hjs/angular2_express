@@ -1,24 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import {UserDataService} from './user-data.service';
 import {User} from './user';
+import {UserHis} from './user-his';
 import {UserCss} from './user.css';
 
 @Component({
   selector: 'app-user',
   template:require("./user.component.html"),
   providers:[UserDataService],
-  styles:[':host table{border-collapse:collapse; text-align: center; margin:50px auto;}',
-  ':host th,td{border: 1px solid #FFBFBF; padding: 5px;}',
-  ':host th{background: #FF9673; color: #ffffff; padding: 10px;}',
-  ':host input[checked]{text-align: center;}',
-  ':host td>input{border: none; box-shadow:2px 2px 1px #bdbdae;}',
-  ':host td>input[type="text"]{background-color: #ffdfbf; padding: 5px;}',
-  ':host td>input:focus{background-color: #ffffbf;}',
-  ':host td>input[type="checkbox"]{box-shadow: none;}',
-  ':host /deep/ input{border: none; box-shadow:2px 2px 1px #bdbdae;}',
-  ':host /deep/ input[type="text"]{background-color: #ffdfbf; padding: 5px;}',
-  ':host /deep/ input:focus{background-color: #ffffbf;}',
-  ':host /deep/ input[type="checkbox"]{box-shadow: none;}']
+  styles:UserCss
 })
 export class UserComponent implements OnInit {
   userList:Array<User>=[];
@@ -27,11 +17,28 @@ export class UserComponent implements OnInit {
   addUserShow:boolean = false;
   addUserBtnStr:string='Show Add User Div';
   title:string = 'User List';
-  constructor(private uds: UserDataService) { }
+  showDialog:boolean = false;
+  userHisList:Array<UserHis>=[];
+
+  constructor(private uds: UserDataService) { 
+    this.getUsers();
+  }
 
   ngOnInit() {
   }
-  
+  showUserHis(userNo:number){
+    this.showDialog = true;
+
+    this.uds.getUsersHis(userNo).subscribe(
+      datas => {
+        console.log(datas);
+        this.userHisList = datas["list"];        
+      },
+      error =>  {
+        this.errorMsg = <any>error;
+        alert(this.errorMsg);
+      });
+  }
   getUsers():void{
     this.uds.getUsers(this.searchUser).subscribe(
       datas => {
@@ -44,6 +51,7 @@ export class UserComponent implements OnInit {
       });
   }
   addUser(user:User):void{
+    console.log(user);
     this.uds.addUser(user).subscribe(
       datas => {
         console.log(datas);

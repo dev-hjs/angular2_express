@@ -45,7 +45,7 @@ export class PromiseTestComponent implements OnInit {
                         this.setLog(text);
                         resolved();
                     }
-                },2000);    
+                },time);    
         });
     }
     testAsync():void{
@@ -81,7 +81,8 @@ export class PromiseTestComponent implements OnInit {
     testPromise():void{
         this.initLog();
         let test1 = this.getPromise.bind(this,'test1',2000);
-        let test2 = this.getPromise.bind(this,'test2',1000,'test2Error');
+
+        let test2 = this.getPromise.bind(this,'test2',1000,'테스트2실행하다가 에러났음');
         let test3 = this.getPromise.bind(this,'test3',1000);
         let test4= () :void =>{
             this.setLog('test4');
@@ -112,6 +113,6 @@ export class PromiseTestComponent implements OnInit {
             (result:string)=>{
                 this.setLog(result);
             }
-        );
+        )
     }
 }

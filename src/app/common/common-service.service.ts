@@ -1,10 +1,9 @@
 import { Injectable } from '@angular/core';
-
 import { Http, Response, Headers, RequestOptions} from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/map';
-
+//ng g service CommonService
 //공통 서비스 클래스
 @Injectable()
 export class CommonServiceService {
@@ -42,8 +41,7 @@ export class CommonServiceService {
   }
 
   protected getJson(url:string):Observable<any>{
-    let options = new RequestOptions({ headers: this.headers});
-    return this._http.get(url, options)
+    return this._http.get(url)
                     .map(this.extractJson)
                     .catch(this.handleError);
   }

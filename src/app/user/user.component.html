@@ -6,7 +6,7 @@
     <button  (click)="getUsers()">getUsers</button>
     <button  (click)="getUsers2()">getUsers2</button>
 <button  (click)="showHideAddUserDiv()">{{addUserBtnStr}}</button><br><br>
-<app-user-insert (outputUser)="addUser($event)" [addUserShow]="addUserShow"></app-user-insert>
+<app-user-insert (outputUser)="addUser($event)" *ngIf="addUserShow"></app-user-insert>
 </div>
 <div class="container">
   <h2>{{title}}</h2>
@@ -21,7 +21,7 @@
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let un of userList">
+      <tr *ngFor="let un of userList" (click)="showUserHis(un.userNo)">
         <td><input type="text" value="{{un.userNo}}" disabled=true/></td>
         <td><input type="text" [(ngModel)]="un.userName"/></td>
         <td><input type="text" [(ngModel)]="un.userId"/></td>
@@ -33,3 +33,11 @@
     </tbody>
   </table>
 </div>
+<app-user-his [(visible)]="showDialog">
+  <p *ngFor="let us of userHisList">
+    {{us.userNo}}, {{us.userData}}
+  </p>
+  <p *ngIf="userHisList.length==0">
+    해당 유저의 히스토리 내역이 없습니다.
+  </p>
+</app-user-his>

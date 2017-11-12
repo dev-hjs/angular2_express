@@ -7,13 +7,11 @@ import { Component, OnInit } from '@angular/core';
 export class ArrowFunctionComponent implements OnInit {
   private title:string = "화살표 함수 테스트"
   text : string = "테스트";
-
   constructor() { }
-
   ngOnInit() {
   }
-  
   testNormalFunction1(){
+    alert(this.text);
     let test = function():void{
       alert(this.text);
     }
@@ -44,6 +42,7 @@ export class ArrowFunctionComponent implements OnInit {
       alert(this.text);
     }
     test.bind(this)();
+    
   }
 
   testNormalFunction5(){
