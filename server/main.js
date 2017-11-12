@@ -106,49 +106,69 @@ app.get('/api/userhis/:userNo',(req, res, next)=>{
     });
 })
 
-app.post('/api/users',(req, res, next)=>{
-    for(var key in req.body){
-        console.log(key);
-        console.log(req.body[key]);
-    }
-})
-
+var insertUser =(sql, value)=>{
+    connection2(dbConfig).then((conn)=>{
+        console.log(sql);
+        return conn.query(sql, values);
+    });
+}
 app.post('/api/users',(req,res,next)=>{
-    var sql = "insert into user_info";
-    spl +="userId, userName, userPwd, complete";
-    sql +="values(?,?,?,?)";
+    var sql = "insert into user_info(";
+    sql += "userId, userName, userPwd, complete)";
+    sql += "values(?,?,?,?)";
     var pm = req.body;
     var values = [pm.userId, pm.userName, pm.userPwd, pm.complete];
     var result = {};
-    sql = 'SELECT userNo, userName, userId, usrId, userPwd, complete from user_info where 1=1'
-    connection2(dbConfig).then((conn)=>{      
-        return conn.query(sql);
+    connection2(dbConfig).then((con)=>{
+        console.log("insertSql : " + sql);
+        return con.query(sql,values);
+    }).then((result)=>{
+        console.log(result);
+        if(result.affectedRows==1){
+            result["msg"] = {
+            "code" : 200,
+            "msg" : "정상적으로 입력되었습니다."
+            };
+        }
+        return result;
+    }).catch(errorHandle).
+    then((result)=>{
+        sql = 'SELECT userNo, userName, userId, userPwd,complete from user_info where 1=1 '
+        connection2(dbConfig).then((conn)=>{
+            return conn.query(sql);
+        })
+        .then(rowsHandle)
+        .catch(errorHandle)
+        .then((result)=>{
+            console.log(result);
+            res.json(result);
+        });
+    })
+   
+})
+app.post('/api/users',(req, res, next)=>{
+    var sql = "insert into user_info("
+    var valueSql = "values("
+    var values = [];
+    for(var key in req.body){
+        sql += key+",";
+        valueSql += "?,";
+        values.push(req.body[key]);
+    }
+    sql = sql.substr(0, sql.length-1) + ")";
+    valueSql = valueSql.substr(0, valueSql.length-1) + ")";
+    sql += valueSql;
+    connection2(dbConfig).then((conn)=>{
+        console.log(sql);
+        return conn.query(sql, values);
     })
     .then(rowsHandle)
     .catch(errorHandle)
     .then((result)=>{
         console.log(result);
-        res.json(result);
-    })
+    });
 })
 
-app.post('/api/users',(req,res,next)=>{
-    var sql = "insert into user_info";
-    spl +="userId, userName, userPwd, complete";
-    sql +="values(?,?,?,?)";
-    var pm = req.body;
-    var values = [pm.userId, pm.userName, pm.userPwd, pm.complete];
-    var result = {};
-    connection2(dbConfig).then((con)=>{      
-        console.log(result);
-        result["error"] = {"code" : 200, "no" : 20, "msg" : "정상적으로 입력되었습니다."};
-        return result;
-    })
-    .catch(errorHandle)
-    .then((result)=>{
-        res.json(result);
-    })
-})
 app.use((req, res, next)=>{
     res.sendFile(path.resolve(__dirname + '/../dist/index.html'));
 });
