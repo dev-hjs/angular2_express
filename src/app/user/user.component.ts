@@ -56,6 +56,10 @@ export class UserComponent implements OnInit {
     this.uds.addUser(user).subscribe(
       datas => {
         console.log(datas);
+        if(datas["error"]){
+          alert(datas["error"])
+          return;
+        }
         this.userList = datas["list"];
       },
       error =>  {

@@ -58,8 +58,16 @@ function selectUserHis(req,res,next){
     console.log(po);
     us.selectUser(po)
     .then((result)=>{
-        res.json(result);
+        if(result["list"].affectedRows==1){
+            us.selectUser({})
+            .then(result=>{
+                result["msg"] = "유저가 정상적으로 생성되었습니다.";
+                console.log(result);
+                res.json(result);
+            });
+        }
     }).catch((result)=>{
-        res.json(result);       
-    });
-};
+        console.log(result);
+       res.json(result); 
+    })
+}
