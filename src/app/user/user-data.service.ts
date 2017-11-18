@@ -9,7 +9,7 @@ import {UserHis} from'./user-his';
 @Injectable()
 export class UserDataService extends CommonServiceService{
   private usersUrl:string="api/users";
-  private userHisUrl = '/api/userhis/';
+  private userHisUrl:string = this.usersUrl +  '/his/';//파라미터를 유저넘버를 넣기 때문에 반드시 슬러시를 넣어야 함,물론 밑에서 해도 상관 없음
 
   constructor(protected _http:Http) {
     super(_http);

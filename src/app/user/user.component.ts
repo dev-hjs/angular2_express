@@ -32,6 +32,7 @@ export class UserComponent implements OnInit {
     this.uds.getUsersHis(userNo).subscribe(
       datas => {
         console.log(datas);
+        //if(datas['error'])
         this.userHisList = datas["list"];        
       },
       error =>  {

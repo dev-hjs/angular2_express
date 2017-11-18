@@ -3,6 +3,7 @@ import { Http, Response, Headers, RequestOptions} from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/map';
+import 'rxjs/add/observable/throw';
 //ng g service CommonService
 //공통 서비스 클래스
 @Injectable()
@@ -57,13 +58,14 @@ export class CommonServiceService {
     let result = res.json();
     if(result.error){
       let err = result.error;
-      throw ("[" + err.no + ":" + err.code + "] " + err.msg);
+      return Observable.throw("[" + err.no + ":" + err.code + "] " + err.msg);
     }
     return result || { };
   }  
 
   private handleError (error: Response | any) {
     let errMsg: string = error;
+    alert(errMsg);
     return Promise.reject(errMsg);
   }
  

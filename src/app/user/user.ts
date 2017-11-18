@@ -4,6 +4,7 @@ export class User {
     userName: string;
     userPwd : string;
     complete: boolean;
+    token:string;
     constructor(values: Object = {}) {
       Object.assign(this, values);
     }

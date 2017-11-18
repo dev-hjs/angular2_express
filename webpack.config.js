@@ -20,7 +20,8 @@ module.exports = {
         ]
       },
       { test: /\.css$/, loaders: ['to-string-loader', 'css-loader'] },
-      { test: /\.html$/, loader: 'raw-loader' }
+      { test: /\.html$/, loader: 'raw-loader' },
+      {test: /\.(jpe?g|png|gif|svg)$/i, loader: "url-loader?name=assets/[name].[ext]"},
     ]
   },
   resolve: {

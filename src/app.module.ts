@@ -10,6 +10,7 @@ import {enableProdMode} from '@angular/core';
 import{AppRoutingModule, RoutingComponents}from './app-routing.module';
 import { UserHisComponent } from './app/user-his/user-his.component';
 
+
 enableProdMode();
 
 @NgModule({
