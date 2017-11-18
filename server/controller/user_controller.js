@@ -26,11 +26,7 @@ function login(req,res,next){
 }
 
 function insertUser(req,res,next){
-    var po = {}
-    if(req.query.user){
-        po = JSON.parse(req.query.user);
-    }
-    us.loginUser(po)
+    us.insertUser(req.body)
     .then((result)=>{
         console.log(result);
         res.json(result);

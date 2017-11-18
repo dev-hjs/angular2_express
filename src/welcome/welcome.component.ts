@@ -41,13 +41,13 @@ export class WelcomeComponent{
                 }
                 if(datas["list"]){
                     this.loginUser = datas["list"][0];
-                    localStorage.setItem('userId', this.loginUser.userId);
-                    localStorage.setItem('userPwd', this.loginUser.userPwd);
-                    localStorage.setItem('userName', this.loginUser.userName);
-                    localStorage.setItem('userNo', this.loginUser.userNo+'');
-                    localStorage.setItem('complete', this.loginUser.complete+'');
-                    localStorage.setItem('token', this.loginUser.token);
-                    localStorage.setItem('login','true');
+                    sessionStorage.setItem('userId', this.loginUser.userId);
+                    sessionStorage.setItem('userPwd', this.loginUser.userPwd);
+                    sessionStorage.setItem('userName', this.loginUser.userName);
+                    sessionStorage.setItem('userNo', this.loginUser.userNo+'');
+                    sessionStorage.setItem('complete', this.loginUser.complete+'');
+                    sessionStorage.setItem('token', this.loginUser.token);
+                    sessionStorage.setItem('login','true');
                     alert(this.loginUser.userName + "님 환영합니다.")
                 }
  

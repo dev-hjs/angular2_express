@@ -26,7 +26,7 @@ function loginUser(po){
         if(po.userPwd!=userPwd){
             return dbm.promiseException({"code" : 100,
             "errno" : 01,
-            "sqlMessage" : '유저아이디 : \'' + po.userId + '\'의 비밀번호를 확인해주세요.'
+            "sqlMessage" : '사용자아이디 : \'' + po.userId + '\'의 비밀번호를 확인해주세요.'
             });
         }
         result.list[0].token = jwt.sign({ sub: po.userId }, "login");
@@ -39,7 +39,7 @@ function insertUser(po){
         if(result.list.length!=0){
             return dbm.promiseException({"code" : 100,
             "errno" : 01,
-            "sqlMessage" : '유저아이디 : \'' + po.userId + '\'는 이미 존재하는 아이디 입니다.'
+            "sqlMessage" : '사용자아이디 : \'' + po.userId + '\'는 이미 존재하는 아이디 입니다.'
             });
         }
         return dbm.updateSql("INSERT_USER",po);
